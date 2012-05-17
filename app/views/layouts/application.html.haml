@@ -18,11 +18,11 @@
     #wrapper
       #header
         = link_to "/" do
-          %h1 JakeLog
+          %h1 jakelog
       = yield
     /
       Javascripts
       \==================================================
     / Placed at the end of the document so the pages load faster
     = javascript_include_tag "application"
-
+    = render :partial => "layouts/footer_scripts"
