@@ -1,20 +1,12 @@
 = form_for @post, :html => { :class => 'form-horizontal' } do |f|
-  .control-group
-    = f.label :title, :class => 'control-label'
-    .controls
-      = f.text_field :title, :class => 'text_field'
-  .control-group
-    = f.label :raw_body, :class => 'control-label'
-    .controls
-      = f.text_area :raw_body, :class => 'text_area'
-  .control-group
-    = f.label :cached_body, :class => 'control-label'
-    .controls
-      = f.text_area :cached_body, :class => 'text_area'
-  .control-group
-    = f.label :current_version, :class => 'control-label'
-    .controls
-      = f.number_field :current_version, :class => 'number_field'
-  .form-actions
-    = f.submit nil, :class => 'btn btn-primary'
-    = link_to t('.cancel', :default => t("helpers.links.cancel")), posts_path, :class => 'btn'
+
+  #bar
+    = link_to 'Back', '/', :id => "back-button", :class => 'icon-arrow-left'
+    = link_to 'Preview', @post, :id => 'preview-button', :target => "_blank", :class => 'icon-eye-open'
+    .bottom
+      = link_to 'Draft', '#', :id => 'publish-button', :class => 'icon-edit'
+  .hide
+    = f.check_box :draft
+  
+  =f.text_area :title
+  =f.text_area :raw_body

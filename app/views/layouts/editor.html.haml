@@ -1,6 +1,8 @@
 !!! 5
 %html(lang="en")
   %head
+    %meta(charset="utf-8")
+    %meta(name="viewport" content="width=device-width, initial-scale=1.0")
     %title= content_for?(:title) ? yield(:title) : "Jakelog"
     %link{:href => "/posts.rss", :rel => "alternate", :title => "RSS", :type => "application/rss+xml"}/
     = csrf_meta_tags
@@ -10,14 +12,8 @@
     = stylesheet_link_tag "application", :media => "all"
     %link(href="images/favicon.ico" rel="shortcut icon")
   %body
-    #wrapper
-      %header
-        %h1= link_to "jakelog", root_url
-        %nav
-          %li= link_to "github", "http://github.com/jakedahn", :target => "_blank"
-          %li= link_to "twitter", "http://twitter.com/jakedahn", :target => "_blank"
-          %li= link_to "subscribe", "/posts.rss"
-      = yield
+    = yield
+  
     /
       Javascripts
       \==================================================
