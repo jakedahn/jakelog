@@ -2,8 +2,9 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
-
+    @posts = Post.all(:select => "title, id, created_at", :order => "created_at DESC")
+    @post_months = @posts.group_by { |t| t.created_at.beginning_of_month }
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @posts }
