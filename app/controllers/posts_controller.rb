@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  layout "editor", :only => [:edit]
   # GET /posts
   # GET /posts.json
   def index

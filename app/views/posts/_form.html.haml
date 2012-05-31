@@ -1,12 +1,4 @@
-= form_for @post, :html => { :class => 'form-horizontal' } do |f|
 
-  #bar
-    = link_to 'Back', '/', :id => "back-button", :class => 'icon-arrow-left'
-    = link_to 'Preview', @post, :id => 'preview-button', :target => "_blank", :class => 'icon-eye-open'
-    .bottom
-      = link_to 'Draft', '#', :id => 'publish-button', :class => 'icon-edit'
-  .hide
-    = f.check_box :draft
-  
+= form_for @post, :html => { :class => 'edit-post' } do |f|
   =f.text_area :title
   =f.text_area :raw_body
