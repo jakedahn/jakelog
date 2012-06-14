@@ -1,0 +1,50 @@
+#bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 65px;
+  background: #EBEBEB;
+  border-right: 1px solid #D0D0D0;
+  height: 100%;
+  margin: 0;
+  padding: 25px 0 0;
+  z-index: 9999;
+}
+
+
+#bar i {
+	font-size: 24px;
+	margin: 0 auto;
+	display: block;
+}
+
+#bar a {
+  margin: 0 10px 10px;
+  line-height: 2em;
+  font-size: 11px;
+  color: #aaa;
+  border: none;
+  display: block;
+  text-align: center;
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  
+}
+
+#bar a:hover {
+	color: #7f7f7f;
+	text-decoration: none;
+}
+
+#bar .bottom {
+	position: fixed;
+	bottom: 0;
+	left: 4px;
+}
+
+#bar .middle {
+	position: fixed;
+	top: 50%;
+	left: 4px;
+}

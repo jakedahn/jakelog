@@ -1,4 +1,7 @@
-- model_class = @post.class
-.page-header
-  %h1=t '.title', :default => t('helpers.titles.new', :model => model_class.model_name.human, :default => "New #{model_class.model_name.human}")
+#bar
+  .top
+    = link_to "#" do
+      %i.icon-hdd
+      Save
+
 = render :partial => "form"

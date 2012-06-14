@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
-  layout "editor", :only => [:edit]
+  layout "editor", :only => [:edit, :new]
+
   # GET /posts
   # GET /posts.json
   def index
@@ -26,7 +27,7 @@ class PostsController < ApplicationController
   # GET /posts/new
   # GET /posts/new.json
   def new
-    @post = Post.new
+    @post = Post.new(title: "Untitled Post #{Time.now.strftime("%m/%d/%Y")}")
 
     respond_to do |format|
       format.html # new.html.erb
@@ -42,11 +43,11 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @post = Post.new(params[:post])
+    @post = Post.new(params[:post], title: "Untitled Post #{Time.now.strftime("%m/%d/%Y")}")
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to @post, notice: 'Post was successfully created.' }
+        format.html { redirect_to edit_post_url(@post), notice: 'Post was successfully created.' }
         format.json { render json: @post, status: :created, location: @post }
       else
         format.html { render action: "new" }
@@ -59,7 +60,7 @@ class PostsController < ApplicationController
   # PUT /posts/1.json
   def update
     @post = Post.find(params[:id])
-
+    # binding.pry
     respond_to do |format|
       if @post.update_attributes(params[:post])
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
@@ -81,5 +82,10 @@ class PostsController < ApplicationController
       format.html { redirect_to posts_url }
       format.json { head :no_content }
     end
+  end
+  
+  def editor
+    
+    
   end
 end

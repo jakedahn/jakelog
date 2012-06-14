@@ -1,19 +1,21 @@
+%span.post_edit_values{:'data-get_url' => post_url(@post), :'data-put_url' => update_post_url(@post), :'data-raw_body' => @post.raw_body.html_safe }
+
 #bar
   .top
-    = link_to "/" do
-      %i.icon-arrow-left
-      Back
+    = link_to "#" do
+      %i.icon-hdd
+      Save
   .middle
-    = link_to "/" do
+    = link_to post_url(@post) do
       %i.icon-eye-open
       Preview
   .bottom
     - if @post.draft
-      = link_to "/" do
+      = link_to "#" do
         %i.icon-edit
         Publish
     - else
-      = link_to "/" do
+      = link_to "#" do
         %i.icon-edit
         Unpublish
 

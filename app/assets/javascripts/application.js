@@ -11,6 +11,23 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require jquery_ujs
-//= require twitter/bootstrap
+//= require_self
+//= require lib.js
+//= require editor.js
+//= require layout.js
+//= require events.js
+//= require commands.js
+//= require cursor.js
+//= require input.js
+//= require selection.js
+//= require parser.js
+//= require undomanager.js
 //= require_tree .
+
+$(function(){  
+  var data_el = $('.post_edit_values')
+  if (data_el) {
+    var post = new Post(data_el.data())
+    console.log(post)
+  };
+})
