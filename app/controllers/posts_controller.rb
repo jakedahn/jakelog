@@ -1,8 +1,7 @@
 class PostsController < ApplicationController
   layout "editor", :only => [:edit, :new]
 
-  # GET /posts
-  # GET /posts.json
+
   def index
     @posts = Post.all(:select => "title, id, created_at", :order => "created_at DESC")
     @post_months = @posts.group_by { |t| t.created_at.beginning_of_month }
@@ -13,8 +12,7 @@ class PostsController < ApplicationController
     end
   end
 
-  # GET /posts/1
-  # GET /posts/1.json
+
   def show
     @post = Post.find(params[:id])
 
@@ -24,8 +22,7 @@ class PostsController < ApplicationController
     end
   end
 
-  # GET /posts/new
-  # GET /posts/new.json
+
   def new
     @post = Post.new(title: "Untitled Post #{Time.now.strftime("%m/%d/%Y")}")
 
@@ -35,13 +32,12 @@ class PostsController < ApplicationController
     end
   end
 
-  # GET /posts/1/edit
+
   def edit
     @post = Post.find(params[:id])
   end
 
-  # POST /posts
-  # POST /posts.json
+
   def create
     @post = Post.new(params[:post], title: "Untitled Post #{Time.now.strftime("%m/%d/%Y")}")
 
@@ -56,24 +52,29 @@ class PostsController < ApplicationController
     end
   end
 
-  # PUT /posts/1
-  # PUT /posts/1.json
+
   def update
     @post = Post.find(params[:id])
-    # binding.pry
-    respond_to do |format|
-      if @post.update_attributes(params[:post])
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
+
+    if @post.raw_body != params[:post][:raw_body]
+      respond_to do |format|
+        raw_body = params[:post][:raw_body]
+        post_title = params[:post][:raw_body].match(/\!\!\#\#(.*?)\#\#\!\!/)[1].lstrip.rstrip || "Untitled"
+
+        if @post.update_attributes(raw_body: raw_body,
+                                   cached_body: markdown(raw_body.split("\#\#\!\!\n")[1]),
+                                   title: post_title)
+          format.html { redirect_to @post, notice: 'Post was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @post.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
 
-  # DELETE /posts/1
-  # DELETE /posts/1.json
+
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
@@ -83,6 +84,7 @@ class PostsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
   
   def editor
     

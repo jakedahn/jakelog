@@ -28,6 +28,5 @@ $(function(){
   var data_el = $('.post_edit_values')
   if (data_el) {
     var post = new Post(data_el.data())
-    console.log(post)
   };
 })
