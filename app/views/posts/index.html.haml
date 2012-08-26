@@ -6,3 +6,12 @@
       %li
         %span.day= post.created_at.strftime("%d")
         = link_to post.title, post_path(post)
+
+#about
+  %img{src: 'http://distillery.s3.amazonaws.com/media/2011/07/01/19b6120fb1f9442ea26a643083c575d1_7.jpg', width: '125px'}
+
+  %h1 Jake Dahn
+  %h4
+    child of the internet, señor software engineer at
+    %a{href: 'http://nebula.com'} Nebula
+    =". Changing the world with OpenStack and stuff."
