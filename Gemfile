@@ -33,3 +33,8 @@ gem 'devise'
 gem 'capistrano'
 gem 'bootstrap-will_paginate'
 gem 'redcarpet'
+
+gem 'omniauth'
+gem 'omniauth-github'
+gem 'octokit'
+
