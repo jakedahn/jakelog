@@ -26,6 +26,7 @@ class PostsController < ApplicationController
       title = "Untitled Post #{Time.now.strftime("%m/%d/%Y")}"
       @post = Post.create(title: title,
                           raw_body: "!!## #{title} ##!!",
+                          cached_body: "",
                           draft: true)
       redirect_to edit_post_path(@post)
     end
