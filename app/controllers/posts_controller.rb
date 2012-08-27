@@ -11,7 +11,6 @@ class PostsController < ApplicationController
     end
   end
 
-
   def show
     @post = Post.find(params[:id])
 
@@ -84,6 +83,22 @@ class PostsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+def feed
+  # this will be the name of the feed displayed on the feed reader
+  @title = "JakeLog"
+
+  # the news items
+  @posts = Post.order("updated_at desc")
+
+  @updated = @posts.first.updated_at unless @posts.empty?
+
+  respond_to do |format|
+    format.atom { render :layout => false }
+  end
+end
+
 
 private
 
