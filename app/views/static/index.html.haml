@@ -7,4 +7,4 @@
         %span.day= post.created_at.strftime("%d")
         = link_to post.title, post_path(post)
         %ul.links
-        	%li= link_to post.title, edit_post_path(post)
+        	%li= link_to "Edit", edit_post_path(post)

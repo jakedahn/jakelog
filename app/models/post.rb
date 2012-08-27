@@ -1,5 +1,5 @@
 class Post < ActiveRecord::Base
-  attr_accessible :cached_body, :current_version, :raw_body, :title
+  attr_accessible :cached_body, :current_version, :raw_body, :title, :draft
 
   def to_param
     if title
@@ -7,7 +7,7 @@ class Post < ActiveRecord::Base
     else
       "#{id}-Untitled"
     end
-    
+
   end
 
 end

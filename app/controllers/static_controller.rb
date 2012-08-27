@@ -8,6 +8,8 @@ class StaticController < ApplicationController
   def admin
   	if current_user
 			@posts = Post.all
+      @post_months = @posts.group_by { |t| t.created_at.beginning_of_month }
+
 		else
 			redirect_to '/auth/github'
   	end

@@ -23,12 +23,11 @@ class PostsController < ApplicationController
 
 
   def new
-    @post = Post.new(title: "Untitled Post #{Time.now.strftime("%m/%d/%Y")}")
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @post }
-    end
+    title = "Untitled Post #{Time.now.strftime("%m/%d/%Y")}"
+    @post = Post.create(title: title,
+                        raw_body: "!!## #{title} ##!!",
+                        draft: true)
+    redirect_to edit_post_path(@post)
   end
 
 
@@ -38,7 +37,7 @@ class PostsController < ApplicationController
 
 
   def create
-    @post = Post.new(params[:post], title: "Untitled Post #{Time.now.strftime("%m/%d/%Y")}")
+    @post = Post.new(params[:post])
 
     respond_to do |format|
       if @post.save
@@ -85,7 +84,6 @@ class PostsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
 
 private
 
