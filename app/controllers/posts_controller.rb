@@ -1,13 +1,12 @@
 class PostsController < ApplicationController
   layout "editor", :only => [:edit, :new]
 
-
   def index
     @posts = Post.all(:select => "title, id, created_at", :order => "created_at DESC")
     @post_months = @posts.group_by { |t| t.created_at.beginning_of_month }
-    
+
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json { render json: @posts }
     end
   end
@@ -17,7 +16,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.json { render json: @post }
     end
   end
@@ -27,7 +26,7 @@ class PostsController < ApplicationController
     @post = Post.new(title: "Untitled Post #{Time.now.strftime("%m/%d/%Y")}")
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.json { render json: @post }
     end
   end
@@ -56,13 +55,15 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
 
-    if @post.raw_body != params[:post][:raw_body]
+    raw_body = params[:post][:raw_body]
+
+    if @post.raw_body != raw_body
       respond_to do |format|
-        raw_body = params[:post][:raw_body]
-        post_title = params[:post][:raw_body].match(/\!\!\#\#(.*?)\#\#\!\!/)[1].lstrip.rstrip || "Untitled"
+        post_title = parse_title(raw_body)
+        raw_body_minus_title = raw_body.split("\#\#\!\!\n")[1]
 
         if @post.update_attributes(raw_body: raw_body,
-                                   cached_body: markdown(raw_body.split("\#\#\!\!\n")[1]),
+                                   cached_body: markdown(raw_body_minus_title),
                                    title: post_title)
           format.html { redirect_to @post, notice: 'Post was successfully updated.' }
           format.json { head :no_content }
@@ -84,10 +85,12 @@ class PostsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
-  
-  def editor
-    
-    
+
+
+private
+
+  def parse_title(string)
+    string.match(/\!\!\#\#(.*?)\#\#\!\!/)[1].lstrip.rstrip || "Untitled"
   end
+
 end
